@@ -1,0 +1,31 @@
+# fleet.yaml - Configuração do Fleet para este repositório
+defaultNamespace: gitops-app
+
+# Definir onde os manifestos estão localizados
+paths:
+  - manifests
+
+# Configurações de deployment
+helm:
+  # Não estamos usando Helm neste exemplo, mas poderia ser configurado aqui
+  releaseName: webapp-demo
+
+# Targets: definir em quais clusters fazer deploy
+targets:
+  - name: all-clusters
+    clusterSelector:
+      matchExpressions:
+      - key: provider.cattle.io
+        operator: Exists
+    # Você pode adicionar seletores mais específicos:
+    # clusterSelector:
+    #   matchLabels:
+    #     environment: production
+
+# Configurações de diff (opcional)
+diff:
+  comparePatches:
+  - apiVersion: apps/v1
+    kind: Deployment
+    operations:
+    - {"op":"remove", "path":"/spec/template/metadata/annotations/cattle.io~1timestamp"}

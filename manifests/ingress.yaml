@@ -1,0 +1,23 @@
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: webapp-demo-ingress
+  namespace: gitops-app
+  annotations:
+    # Para Nginx Ingress Controller
+    kubernetes.io/ingress.class: "nginx"
+    # Para Traefik (se estiver usando K3s/RKE2)
+    # kubernetes.io/ingress.class: "traefik"
+spec:
+  rules:
+  - host: webapp-demo.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: webapp-demo-service
+            port:
+              number: 80
