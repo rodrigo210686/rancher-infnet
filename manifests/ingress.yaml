@@ -11,7 +11,7 @@ metadata:
     # kubernetes.io/ingress.class: "traefik"
 spec:
   rules:
-  - host: webapp-demo.34.234.61.178.sslip.io"
+  - host: webapp-demo.34.234.61.178.sslip.io
     http:
       paths:
       - path: /
